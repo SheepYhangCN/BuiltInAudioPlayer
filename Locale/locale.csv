@@ -1,0 +1,12 @@
+keys,en,zh_CN,zh_TW,ja
+locLanguageName,English,简体中文,繁體中文,日本語
+locLabel1,"Modify file ""audio"" to change audio\nPriority: ogg > wav > mp3\n",修改“audio”文件以更换音频\n优先度：ogg > wav > mp3\n,修改“audio”檔案以更換音頻\n優先度：ogg > wav > mp3\n,オーディオ「audio」を修正し、\nオーディオを変更する。\n優先順位：ogg > wav > mp3\n
+locLabel,Current: ,目前状态：,當前狀態：,現在の状態：
+locNotLoaded,Not Loaded,未载入,未載入,未搭載
+locLoaded,Loaded,已载入,已載入,満載
+locReload,Reload,重新载入,重新載入,リロード
+locPlay,Play,播放,播放,再生
+locStop,Stop,停止,停止,休止
+locPause,Pause,暂停,暫停,ポーズ
+locResume,Resume,继续,繼續,続ける
+locAudioFile, Audio File, 音频文件, 音訊檔案,　音声ファイル
