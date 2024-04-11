@@ -21,9 +21,11 @@ It should be ok to pack them into single exe, ```options.ini``` won't be edit by
 ```AdditionLabel```: Addition Instructions, only show "Current: " if False ```(default: True)```<br>
 ```Pauseble```: Allow user to pause audio, remove pause button when False ```(default: True)```<br>
 ```AllowSelecting```: When False, it won't pop-up a window to select audio file when no audio file was found ```(default: True)```<br>
+```ShowProgressBar```: Show progress bar if True ```(default: True)```<br>
+```AllowDragProgressBar```: Progress bar will be draggable if True (Only works when ```ShowProgressBar``` is True) ```(default: True)```<br>
 ```ForceLocale```: Lock language and remove language option, change it to "" to disable this feature ```(default: "")```<br>
 
 ## To-do list
 - [ ] Fix ```.wav```<br>
 - [ ] Fix ```.mp3```<br>
-- [ ] Draggable progress bar
+- [x] Draggable progress bar

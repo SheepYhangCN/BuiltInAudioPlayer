@@ -10,6 +10,8 @@ public partial class Main : Control
 	bool addition_label = true;
 	bool pauseable = true;
 	bool allow_selecting = true;
+	bool show_progressbar = true;
+	bool allow_drag_progressbar = true;
 	string force_locale = "";
 	string locale="";
 
@@ -26,6 +28,8 @@ public partial class Main : Control
 				addition_label=(bool)file.GetValue("Options","AdditionLabel",true);
 				pauseable=(bool)file.GetValue("Options","Pauseble",true);
 				allow_selecting=(bool)file.GetValue("Options","AllowSelecting",true);
+				show_progressbar=(bool)file.GetValue("Options","ShowProgressBar",true);
+				allow_drag_progressbar=(bool)file.GetValue("Options","AllotDragProgressBar",true);
 				force_locale=(string)file.GetValue("Options","ForceLocale","");
 			}
 			else
@@ -39,6 +43,8 @@ public partial class Main : Control
 			file.SetValue("Options","AdditionLabel",addition_label);
 			file.SetValue("Options","Pauseble",pauseable);
 			file.SetValue("Options","AllowSelecting",allow_selecting);
+			file.SetValue("Options","ShowProgressBar",show_progressbar);
+			file.SetValue("Options","AllotDragProgressBar",allow_drag_progressbar);
 			file.SetValue("Options","ForceLocale",force_locale);
 			Error save = file.Save("res://options.ini");
 			if (save != Error.Ok)
@@ -136,11 +142,18 @@ public partial class Main : Control
 
 	public override void _Process(double delta)
 	{
+		var player=GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+		var stream=player.Stream;
 		GetNode<OptionButton>("Languages").Visible=(force_locale == "");
+		GetNode<PanelContainer>("CenterContainer/VBoxContainer/ProgressBar").Visible=show_progressbar;
+		GetNode<ProgressBar>("CenterContainer/VBoxContainer/ProgressBar/ProgressBar").Visible=show_progressbar;
+		GetNode<HSlider>("CenterContainer/VBoxContainer/ProgressBar/HSlider").Editable=allow_drag_progressbar;
+		GetNode<ProgressBar>("CenterContainer/VBoxContainer/ProgressBar/ProgressBar").Value=player.GetPlaybackPosition()/stream.GetLength()*100;
+		GetNode<Label>("CenterContainer/VBoxContainer/ProgressBar/Progress").Text=Math.Round(player.GetPlaybackPosition()).ToString()+"s / "+Math.Round(stream.GetLength()).ToString()+"s";
 		var pause=GetNode<Button>("CenterContainer/VBoxContainer/HBoxContainer/Pause");
 		pause.Text=paused ? "locResume" : "locPause";
 		pause.Visible=pauseable;
-		pause.Disabled=!(GetNode<AudioStreamPlayer>("AudioStreamPlayer").Playing) && !(GetNode<AudioStreamPlayer>("AudioStreamPlayer").StreamPaused);
+		pause.Disabled=!(player.Playing) && !(player.StreamPaused);
 		var status=TranslationServer.Translate("locNotLoaded");
 		if (audio is AudioStreamOggVorbis)
 		{
@@ -202,6 +215,15 @@ public partial class Main : Control
 		GetNode<AudioStreamPlayer>("AudioStreamPlayer").StreamPaused=false;
 		GetNode<AudioStreamPlayer>("AudioStreamPlayer").Stop();
 		Load();
+	}
+
+	public void _on_h_slider_value_changed(float value)
+	{
+		var player=GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+		var stream=player.Stream;
+		player.Seek(value/100*(float)stream.GetLength());
+		GetNode<ProgressBar>("CenterContainer/VBoxContainer/ProgressBar/ProgressBar").Value=value;
+		GetNode<Label>("CenterContainer/VBoxContainer/ProgressBar/Progress").Text=Math.Round(stream.GetLength()*(value/100)).ToString()+"s / "+Math.Round(stream.GetLength()).ToString()+"s";
 	}
 
 	void Load()

@@ -35,10 +35,42 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 horizontal_alignment = 1
 
-[node name="Reload" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="Reload" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="CenterContainer/VBoxContainer/Reload"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Reload" type="Button" parent="CenterContainer/VBoxContainer/Reload"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "locReload"
+
+[node name="Control2" type="Control" parent="CenterContainer/VBoxContainer/Reload"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProgressBar" type="PanelContainer" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="CenterContainer/VBoxContainer/ProgressBar"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 32
+show_percentage = false
+
+[node name="Progress" type="Label" parent="CenterContainer/VBoxContainer/ProgressBar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "11:45 / 05:14"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="CenterContainer/VBoxContainer/ProgressBar"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -79,7 +111,8 @@ popup/item_0/id = 0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Reload" to="." method="_on_reload_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Reload/Reload" to="." method="_on_reload_pressed"]
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/ProgressBar/HSlider" to="." method="_on_h_slider_value_changed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/Stop" to="." method="_on_stop_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/Pause" to="." method="_on_pause_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/HBoxContainer/Play" to="." method="_on_play_pressed"]
