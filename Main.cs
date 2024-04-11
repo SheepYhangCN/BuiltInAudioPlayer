@@ -26,7 +26,6 @@ public partial class Main : Control
 				addition_label=(bool)file.GetValue("Options","AdditionLabel",true);
 				pauseable=(bool)file.GetValue("Options","Pauseble",true);
 				allow_selecting=(bool)file.GetValue("Options","AllowSelecting",true);
-				locale=(string)file.GetValue("UserOptions","Locale","");
 				force_locale=(string)file.GetValue("Options","ForceLocale","");
 			}
 			else
@@ -41,7 +40,6 @@ public partial class Main : Control
 			file.SetValue("Options","Pauseble",pauseable);
 			file.SetValue("Options","AllowSelecting",allow_selecting);
 			file.SetValue("Options","ForceLocale",force_locale);
-			file.SetValue("UserOptions","Locale",locale);
 			Error save = file.Save("res://options.ini");
 			if (save != Error.Ok)
 			{
@@ -86,7 +84,7 @@ public partial class Main : Control
 		{
 		    TranslationServer.SetLocale(OS.GetLocale());
 		}
-		var node=GetNode<OptionButton>("Languages");
+		var node=GetNode<OptionButton>("Languages");/*
 		var csv="res://Locale/locale.csv";
 		var ff=FileAccess.Open(csv,FileAccess.ModeFlags.Read);
 		var err=FileAccess.GetOpenError();
@@ -100,7 +98,8 @@ public partial class Main : Control
 		else
 		{
 			GD.PushError($"Localization file load failed, error code: {(int)err}("+err.ToString()+")");
-		}
+		}*/
+		locales=TranslationServer.GetLoadedLocales();
 		node.ItemCount=locales.Length;
 		foreach (var current in locales)
 		{
