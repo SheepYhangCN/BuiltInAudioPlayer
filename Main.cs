@@ -80,15 +80,15 @@ public partial class Main : Control
 
 		if (OS.GetLocale() == "zh_TW" || OS.GetLocale() == "zh_HK" || OS.GetLocale() == "zh_MO")
 		{
-		    TranslationServer.SetLocale("zh_TW");
+			TranslationServer.SetLocale("zh_TW");
 		}
 		else if (OS.GetLocaleLanguage() == "zh" || OS.GetLocale() == "zh_CN" || OS.GetLocale() == "zh_SG")
 		{
-		    TranslationServer.SetLocale("zh_CN");
+			TranslationServer.SetLocale("zh_CN");
 		}
 		else
 		{
-		    TranslationServer.SetLocale(OS.GetLocale());
+			TranslationServer.SetLocale(OS.GetLocale());
 		}
 		var node=GetNode<OptionButton>("Languages");/*
 		var csv="res://Locale/locale.csv";
@@ -135,7 +135,7 @@ public partial class Main : Control
 		}
 		if (force_locale != "")
 		{
-		    TranslationServer.SetLocale(force_locale);
+			TranslationServer.SetLocale(force_locale);
 		}
 		node.Selected=Array.IndexOf(locales.ToArray(),locales.Contains(TranslationServer.GetLocale()) ? TranslationServer.GetLocale() : TranslationServer.GetLocale().Left(2));
 	}
@@ -148,8 +148,11 @@ public partial class Main : Control
 		GetNode<PanelContainer>("CenterContainer/VBoxContainer/ProgressBar").Visible=show_progressbar;
 		GetNode<ProgressBar>("CenterContainer/VBoxContainer/ProgressBar/ProgressBar").Visible=show_progressbar;
 		GetNode<HSlider>("CenterContainer/VBoxContainer/ProgressBar/HSlider").Editable=allow_drag_progressbar;
-		GetNode<ProgressBar>("CenterContainer/VBoxContainer/ProgressBar/ProgressBar").Value=player.GetPlaybackPosition()/stream.GetLength()*100;
-		GetNode<Label>("CenterContainer/VBoxContainer/ProgressBar/Progress").Text=Math.Round(player.GetPlaybackPosition()).ToString()+"s / "+Math.Round(stream.GetLength()).ToString()+"s";
+		if (stream != null)
+		{
+			GetNode<ProgressBar>("CenterContainer/VBoxContainer/ProgressBar/ProgressBar").Value=player.GetPlaybackPosition()/stream.GetLength()*100;
+			GetNode<Label>("CenterContainer/VBoxContainer/ProgressBar/Progress").Text=Math.Round(player.GetPlaybackPosition()).ToString()+"s / "+Math.Round(stream.GetLength()).ToString()+"s";
+		}
 		var pause=GetNode<Button>("CenterContainer/VBoxContainer/HBoxContainer/Pause");
 		pause.Text=paused ? "locResume" : "locPause";
 		pause.Visible=pauseable;
@@ -228,6 +231,7 @@ public partial class Main : Control
 
 	void Load()
 	{
+		GetNode<Label>("CenterContainer/VBoxContainer/ProgressBar/Progress").Text="0s / 0s";
 		if (FileAccess.FileExists("res://audio.ogg"))
 		{
 			audio=AudioStreamOggVorbis.LoadFromFile("res://audio.ogg");

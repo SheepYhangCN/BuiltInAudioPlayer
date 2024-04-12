@@ -63,7 +63,7 @@ show_percentage = false
 [node name="Progress" type="Label" parent="CenterContainer/VBoxContainer/ProgressBar"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 32
-text = "11:45 / 05:14"
+text = "0s / 0s"
 horizontal_alignment = 1
 vertical_alignment = 1
 
