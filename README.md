@@ -9,16 +9,16 @@ Godot 4.2.1 Stable Mono Official<br>
 
 ## How 2 use
 Export this project to ```exe```<br>
-then copy the ```options.ini``` at the same folder with exe file<br>
+then copy the ```options.ini``` to the same folder with exe file<br>
 <br>
 Find a audio file (technically it can be ```.ogg```/```.wav```/```.mp3```, but only ```.ogg``` is useable now and I don't know why, ```mp3``` is not loadable, and ```wav``` can only make noise)<br>
 Rename the file to ```audio.<file extension>```<br>
-then put it at the same folder with exe file<br>
+then put it to the same folder with exe file<br>
 Run the exe and it will work<br>
 It should be ok to pack them into single exe, ```options.ini``` won't be edit by program<br>
 
 ## options.ini
-```AdditionLabel```: Addition Instructions, only show "Current: " if False ```(default: True)```<br>
+```AdditionLabel```: Additional instructions, only show "Current: " if False ```(default: True)```<br>
 ```Pauseble```: Allow user to pause audio, remove pause button when False ```(default: True)```<br>
 ```AllowSelecting```: When False, it won't pop-up a window to select audio file when no audio file was found ```(default: True)```<br>
 ```ShowProgressBar```: Show progress bar if True ```(default: True)```<br>
